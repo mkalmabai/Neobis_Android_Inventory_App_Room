@@ -9,7 +9,11 @@
         android:id="@+id/mainFragment"
         android:name="com.example.neobis_android_inventory_app.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_addFragment3"
+            app:destination="@id/addFragment" />
+    </fragment>
     <fragment
         android:id="@+id/archiveFragment"
         android:name="com.example.neobis_android_inventory_app.ArchiveFragment"

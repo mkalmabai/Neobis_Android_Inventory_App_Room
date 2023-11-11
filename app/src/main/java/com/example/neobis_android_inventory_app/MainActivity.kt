@@ -28,5 +28,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentBlank,fragment)
         fragmentTransaction.commit()
-    }
+
+        }
 }
