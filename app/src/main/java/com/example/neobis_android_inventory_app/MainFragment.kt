@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.neobis_android_inventory_app.Adapter.RecyclerViewAdapter
 
 import com.example.neobis_android_inventory_app.databinding.FragmentMainBinding
 
@@ -21,11 +23,15 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        val adapter = RecyclerViewAdapter()
+        val recyclerview = binding.recyclerview
+        recyclerview.adapter = adapter
+        recyclerview.layoutManager = LinearLayoutManager(requireContext())
+
+
 
         binding.floatingActionButton.setOnClickListener {
-            val fragmentTransaction = fragmentManager!!.beginTransaction()
-            fragmentTransaction.replace(R.id.fragmentBlank,AddFragment())
-            fragmentTransaction.commit()
+           findNavController().navigate(R.id.action_mainFragment_to_addFragment3)
         }
 
         return view
