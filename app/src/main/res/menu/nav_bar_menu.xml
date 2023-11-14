@@ -6,6 +6,6 @@
         android:icon="@drawable/mainicon"/>
     <item
         android:id="@+id/archiveFragment"
-        android:title="@string/archive"
-        android:icon="@drawable/archiveicon"/>
+        android:icon="@drawable/archiveicon"
+        android:title="@string/archive" />
 </menu>

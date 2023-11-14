@@ -19,6 +19,10 @@ class ArchiveFragment : Fragment() {
     ): View? {
 
         binding = FragmentArchiveBinding.inflate(inflater, container, false)
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_archiveFragment_to_addFragment)
+        }
         return binding.root
+
     }
 }

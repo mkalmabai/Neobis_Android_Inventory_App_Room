@@ -1,7 +1,9 @@
 package com.example.neobis_android_inventory_app
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -19,13 +21,13 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentBlank) as NavHostFragment
         navController = navHostFragment.navController
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bottomNavigationView = binding.bottomNavigationView
 
-        bottomNavigationView.setOnItemSelectedListener  {
-            navController.navigate(it.itemId)
+        bottomNavigationView.setOnItemSelectedListener { item->
+            navController.navigate(item.itemId)
             true
-        }
 
+        }
 
     }
 

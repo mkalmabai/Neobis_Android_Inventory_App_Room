@@ -7,6 +7,7 @@ import com.example.neobis_android_inventory_app.database.ProductRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProductPresenter(private val context: Context): ProductContract.Presenter {
     private var view:ProductContract.View? = null
@@ -16,15 +17,23 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
         productRepository = productDao?.let { ProductRepository(it) }!!
     }
 
-     override fun getAllProducts() {
-//        val products = productRepository.getAllProducts()
-//        view?.showProducts(products)
+    override fun getAllProducts() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val products = withContext(Dispatchers.IO) {
+                    productRepository.getAllProducts()
+                }
+                view?.showProducts(products)
+            } catch (e: Exception) {
+//                view?.showError(e.message ?: "Unknown error occurred")
+            }
+        }
     }
 
-     override fun insertProduct(dataProduct: DataProduct) {
-         CoroutineScope(Dispatchers.IO).launch {
-             productRepository.insertProduct(dataProduct)
-         }
+    override fun insertProduct(dataProduct: DataProduct) {
+        CoroutineScope(Dispatchers.IO).launch {
+            productRepository.insertProduct(dataProduct)
+        }
     }
 
     override  fun updateProduct(dataProduct: DataProduct) {
@@ -39,6 +48,10 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
             productRepository.deleteProduct(dataProduct)
         }
 
+    }
+
+    fun attachView(view: ProductContract.View) {
+        this.view = view
     }
 
 }

@@ -9,16 +9,15 @@ import com.example.neobis_android_inventory_app.databinding.ItemRecyclerviewBind
 
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-    private var dataProduct = emptyList<DataProduct>()
+    var dataProduct = emptyList<DataProduct>()
     class ViewHolder(private val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root){
-        val text1 = binding.textView
-        val text2 = binding.textView2
+        val text1 = binding.itemNameProduct
+        val text2 = binding.itemManufacturer
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemRecyclerviewBinding.inflate(
-            LayoutInflater.from(parent.context),parent,false
+        val binding = ItemRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false
         )
         return ViewHolder(binding)
     }
@@ -31,6 +30,5 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
             text1.text = dataProduct.name
             text2.text = dataProduct.manufacturer
         }
-        }
     }
-
+}
