@@ -1,6 +1,8 @@
 package com.example.neobis_android_inventory_app
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,9 +55,11 @@ class MainFragment : Fragment(),ProductContract.View {
         presenter.getAllProducts()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun showProducts(products: List<DataProduct>) {
         adapter.dataProduct = products
         adapter.notifyDataSetChanged()
+        Log.e("Test", "showAllProductsFragment")
     }
 
     override fun showInsertSuccessMessage() {

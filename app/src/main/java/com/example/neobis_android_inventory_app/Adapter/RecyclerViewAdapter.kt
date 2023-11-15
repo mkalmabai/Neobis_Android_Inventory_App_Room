@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewParent
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.neobis_android_inventory_app.database.DataProduct
 import com.example.neobis_android_inventory_app.databinding.ItemRecyclerviewBinding
 
@@ -11,8 +12,12 @@ import com.example.neobis_android_inventory_app.databinding.ItemRecyclerviewBind
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     var dataProduct = emptyList<DataProduct>()
     class ViewHolder(private val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root){
-        val text1 = binding.itemNameProduct
-        val text2 = binding.itemManufacturer
+
+        val img = binding.itemImageview
+        val name = binding.itemNameProduct
+        val price = binding.itemPrice
+        val manufacturer = binding.itemManufacturer
+        val quantity =binding.itemQuantity
 
     }
 
@@ -26,9 +31,14 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dataProduct = dataProduct[position]
+
         holder.apply {
-            text1.text = dataProduct.name
-            text2.text = dataProduct.manufacturer
+            Glide.with(img).load(dataProduct.imagePath).into(img)
+                name.text = dataProduct.name
+                price.text = dataProduct.price.toString()
+                manufacturer.text = dataProduct.manufacturer
+                quantity.text = dataProduct.quantity.toString()
+
         }
     }
 }

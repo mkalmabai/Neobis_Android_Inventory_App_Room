@@ -8,9 +8,9 @@ class ProductRepository(private val productDao: ProductDao) {
         return productDao.insert(dataProduct)
     }
        fun updateProduct(dataProduct: DataProduct) {
-        productDao.update(dataProduct)
+        return productDao.update(dataProduct)
     }
        fun deleteProduct(dataProduct: DataProduct) {
-        productDao.delete(dataProduct)
+        return productDao.delete(dataProduct)
     }
 }

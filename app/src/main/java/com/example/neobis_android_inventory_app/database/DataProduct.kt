@@ -9,7 +9,7 @@ data class DataProduct(
     @PrimaryKey(autoGenerate = true)
 //    @ColumnInfo(name = "id")
     val id: Int? = null,
-//    val imagePath: String,
+    val imagePath: String,
     val name: String,
     val price: Int,
     val manufacturer: String,

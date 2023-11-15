@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:background="@drawable/sneaker"
+                android:background="@drawable/mainimg"
                 app:layout_constraintDimensionRatio="1:1" />
 
         </androidx.cardview.widget.CardView>
