@@ -25,31 +25,27 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
                 }
                 view?.showProducts(products)
             } catch (e: Exception) {
-//                view?.showError(e.message ?: "Unknown error occurred")
+               view?.showError(e.message ?: "Unknown error occurred")
             }
         }
     }
-
     override fun insertProduct(dataProduct: DataProduct) {
         CoroutineScope(Dispatchers.IO).launch {
             productRepository.insertProduct(dataProduct)
         }
     }
-
     override  fun updateProduct(dataProduct: DataProduct) {
         CoroutineScope(Dispatchers.IO).launch {
             productRepository.updateProduct(dataProduct)
         }
 
     }
-
     override fun deleteProduct(dataProduct: DataProduct) {
         CoroutineScope(Dispatchers.IO).launch {
             productRepository.deleteProduct(dataProduct)
         }
 
     }
-
     fun attachView(view: ProductContract.View) {
         this.view = view
     }

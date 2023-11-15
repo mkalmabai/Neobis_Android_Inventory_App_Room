@@ -56,9 +56,9 @@ class AddFragment : Fragment(),ProductContract.View {
         }
         binding.imageHolder.setOnClickListener {
             ImagePicker.with(this)
-                .crop()                 //Crop image(Optional), Check Customization for more option
-                .compress(1024)          //Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080) //Final image resolution will be less than 1080 x 1080(Optional)
+                .crop()
+                .compress(1024)
+                .maxResultSize(1080, 1080)
                 .start()
         }
 
@@ -112,24 +112,7 @@ class AddFragment : Fragment(),ProductContract.View {
         }
     }
 
-    override fun showProducts(products: List<DataProduct>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun showInsertSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showUpdateSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showDeleteSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-//
-
-
+    override fun showProducts(products: List<DataProduct>) {}
+    override fun showError(message: String) {}
 
 }

@@ -10,7 +10,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DataProduct(
     @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo(name = "id")
     val id: Int? = null,
     val imagePath: String,
     val name: String,

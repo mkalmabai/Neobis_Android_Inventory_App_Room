@@ -1,5 +1,6 @@
 package com.example.neobis_android_inventory_app
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -66,9 +67,9 @@ class UpdateFragment : Fragment(),ProductContract.View {
         }
         binding.updateimageHolder.setOnClickListener {
             ImagePicker.with(this)
-                .crop()                 //Crop image(Optional), Check Customization for more option
-                .compress(1024)          //Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080) //Final image resolution will be less than 1080 x 1080(Optional)
+                .crop()
+                .compress(1024)
+                .maxResultSize(1080, 1080)
                 .start()
         }
 
@@ -95,15 +96,26 @@ class UpdateFragment : Fragment(),ProductContract.View {
                     manufacturer =manufacturer,
                     quantity =quantity
                 )
-                presenter.updateProduct(dataproduct)
-                Toast.makeText(requireContext(), "Updated Successfully!", Toast.LENGTH_LONG)
-                    .show()
-                findNavController().navigateUp()
+                showUpdateConfirmationDialog(dataproduct)
             }
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
 
+    }
+    private fun showUpdateConfirmationDialog(dataproduct: DataProduct) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Сохранить изменения?")
+            .setPositiveButton("Сохранить") { dialog, _ ->
+                presenter.updateProduct(dataproduct)
+                Toast.makeText(requireContext(), "Updated Successfully!", Toast.LENGTH_LONG).show()
+                findNavController().navigateUp()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
     private fun inputCheck(name: String,
                            priceStr: String,
@@ -123,19 +135,7 @@ class UpdateFragment : Fragment(),ProductContract.View {
         }
     }
 
-    override fun showProducts(products: List<DataProduct>) {
-        TODO("Not yet implemented")
-    }
+    override fun showProducts(products: List<DataProduct>) {}
+    override fun showError(message: String) {}
 
-    override fun showInsertSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showUpdateSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showDeleteSuccessMessage() {
-        TODO("Not yet implemented")
-    }
 }

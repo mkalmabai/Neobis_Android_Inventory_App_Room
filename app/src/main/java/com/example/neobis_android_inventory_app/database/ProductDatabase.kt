@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase
 @Database(entities = [DataProduct ::class], version = 1, exportSchema = false)
 abstract class ProductDatabase: RoomDatabase() {
         abstract fun productDao():ProductDao
-
         companion object{
             @Volatile
             private var INSTANCE: ProductDatabase? =null

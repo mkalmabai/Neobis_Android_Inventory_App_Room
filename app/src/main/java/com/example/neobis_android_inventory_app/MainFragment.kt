@@ -29,7 +29,6 @@ class MainFragment : Fragment(),ProductContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -62,17 +61,5 @@ class MainFragment : Fragment(),ProductContract.View {
         Log.e("Test", "showAllProductsFragment")
     }
 
-    override fun showInsertSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showUpdateSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-    override fun showDeleteSuccessMessage() {
-        TODO("Not yet implemented")
-    }
-
-
+    override fun showError(message: String) {}
 }
