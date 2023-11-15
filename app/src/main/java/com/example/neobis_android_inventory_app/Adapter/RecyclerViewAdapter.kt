@@ -3,10 +3,13 @@ package com.example.neobis_android_inventory_app.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewParent
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.neobis_android_inventory_app.MainFragmentDirections
 import com.example.neobis_android_inventory_app.database.DataProduct
 import com.example.neobis_android_inventory_app.databinding.ItemRecyclerviewBinding
+
 
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -18,6 +21,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         val price = binding.itemPrice
         val manufacturer = binding.itemManufacturer
         val quantity =binding.itemQuantity
+        val item = binding.itemCardView
 
     }
 
@@ -40,5 +44,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
                 quantity.text = dataProduct.quantity.toString()
 
         }
+        holder.item.setOnClickListener{
+            val action = MainFragmentDirections.actionMainFragmentToUpdateFragment(dataProduct)
+            holder.item.findNavController().navigate(action)
+        }
     }
+
 }

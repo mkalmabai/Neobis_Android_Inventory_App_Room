@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_archiveFragment2"
             app:destination="@id/archiveFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/archiveFragment"
@@ -32,6 +35,15 @@
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.neobis_android_inventory_app.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <argument
+            android:name="dataProdactArg"
+            app:argType="com.example.neobis_android_inventory_app.database.DataProduct" />
     </fragment>
 
 </navigation>

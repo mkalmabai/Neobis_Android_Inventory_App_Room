@@ -21,4 +21,6 @@
     <string name="inputquantity">Количество товара</string>
     <string name="cancel">Отмена</string>
     <string name="add">Добавить</string>
+    <string name="updateproduct">Детали о товаре</string>
+    <string name="update">Сохранить</string>
 </resources>
