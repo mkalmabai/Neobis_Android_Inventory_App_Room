@@ -35,6 +35,7 @@ android {
         viewBinding {
             enabled = true
         }
+
     }
     apply plugin: 'kotlin-kapt'
     kotlin {

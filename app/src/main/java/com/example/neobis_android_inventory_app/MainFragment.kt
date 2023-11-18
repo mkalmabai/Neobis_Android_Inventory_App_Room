@@ -1,12 +1,14 @@
 package com.example.neobis_android_inventory_app
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
@@ -21,6 +23,7 @@ import com.example.neobis_android_inventory_app.database.DataProduct
 
 import com.example.neobis_android_inventory_app.databinding.FragmentMainBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 
 class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
     private lateinit var binding: FragmentMainBinding
@@ -64,8 +67,28 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
     }
 
     override fun onBottomSheetClick(position: Int, dataProduct: DataProduct) {
-        val dialog = BottomSheet.newInstance(BottomSheet.BottomSheetType.MAIN)
-        dialog.show(parentFragmentManager, getString(R.string.modal_bottom_sheet))
+        val dialog = BottomSheetDialog(requireContext())
+        val view  = layoutInflater.inflate(R.layout.main_bottom_sheet,null)
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+        dialog.show()
+
+        val archive = dialog.findViewById<TextView>(R.id.bottom_sheet_archive)
+        archive?.setOnClickListener {
+            dialog.dismiss()
+            showArchiveDialog(dataProduct)
+        }
+    }
+
+    private fun showArchiveDialog(dataProduct: DataProduct) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Архивировать ${dataProduct.name} из каталога?")
+            .setPositiveButton("Да") { _, _ ->
+                presenter.archiveProduct(dataProduct)
+            }
+            .setNegativeButton("Нет", null)
+            .create()
+            .show()
     }
 
     override fun onRecyclerViewItemClick( dataProduct: DataProduct) {

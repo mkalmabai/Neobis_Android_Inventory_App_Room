@@ -89,13 +89,13 @@ class UpdateFragment : Fragment(),ProductContract.MainView {
                     quantity =quantity,
                     args.dataProdactArg.archive
                 )
-                showUpdateConfirmationDialog(dataproduct)
+                showUpdateDialog(dataproduct)
             } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
     }
     @SuppressLint("InflateParams")
-    private fun showUpdateConfirmationDialog(dataproduct: DataProduct) {
+    private fun showUpdateDialog(dataproduct: DataProduct) {
         val inflater = requireActivity().layoutInflater
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(inflater.inflate(R.layout.dialog_update,null))

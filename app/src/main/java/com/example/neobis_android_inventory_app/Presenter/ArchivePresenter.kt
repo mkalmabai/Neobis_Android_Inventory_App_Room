@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ArchivePresenter(private val context: Context):ProductContract.Presenter {
+class ArchivePresenter(private val context: Context):ProductContract.ArchivePresenter {
     private var view:ProductContract.MainView? = null
     private val productRepository: ProductRepository
     init {
@@ -34,12 +34,27 @@ class ArchivePresenter(private val context: Context):ProductContract.Presenter {
     }
 
     override fun updateProduct(dataProduct: DataProduct) {
-        TODO("Not yet implemented")
+        CoroutineScope(Dispatchers.IO).launch {
+            productRepository.updateProduct(dataProduct)
+        }
     }
 
+
+
     override fun deleteProduct(dataProduct: DataProduct) {
-        TODO("Not yet implemented")
+        CoroutineScope(Dispatchers.IO).launch {
+            productRepository.deleteProduct(dataProduct)
+        }
     }
+
+    override fun restoreProduct(dataProduct: DataProduct) {
+            dataProduct.archive = false
+            CoroutineScope(Dispatchers.IO).launch {
+                productRepository.updateProduct(dataProduct)
+
+        }
+    }
+
     fun attachView(view: ProductContract.MainView) {
         this.view = view
     }

@@ -13,10 +13,15 @@ interface ProductContract {
           fun insertProduct(dataProduct: DataProduct)
           fun updateProduct(dataProduct: DataProduct)
           fun deleteProduct(dataProduct: DataProduct)
+          fun archiveProduct(dataProduct: DataProduct)
     }
-    interface BottomSheetPresenter{
-        fun archiveProduct(dataProduct: DataProduct)
+    interface ArchivePresenter{
+
         fun deleteProduct(dataProduct: DataProduct)
         fun restoreProduct(dataProduct: DataProduct)
+        fun getAllProducts()
+        fun insertProduct(dataProduct: DataProduct)
+        fun updateProduct(dataProduct: DataProduct)
+
     }
 }

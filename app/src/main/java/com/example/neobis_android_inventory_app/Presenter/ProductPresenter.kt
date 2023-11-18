@@ -46,6 +46,12 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
         }
 
     }
+    override fun archiveProduct(dataProduct: DataProduct) {
+        dataProduct.archive =true
+        CoroutineScope(Dispatchers.IO).launch {
+            productRepository.updateProduct(dataProduct)
+        }
+    }
     fun attachView(view: ProductContract.MainView) {
         this.view = view
     }
