@@ -5,9 +5,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nameProduct">Air Jordan</string>
-    <string name="price">$1500.00</string>
+    <string name="price">$%1$s</string>
     <string name="manufacturer">Nike</string>
-    <string name="quantity">105шт</string>
+    <string name="quantity">%1$s шт</string>
     <string name="Search">Поиск</string>
     <string name="main">Главное</string>
     <string name="addproduct">Добавить товар</string>
@@ -23,4 +23,11 @@
     <string name="add">Добавить</string>
     <string name="updateproduct">Детали о товаре</string>
     <string name="update">Сохранить</string>
+    <string name="dialogquestion">Сохранить изменения?</string>
+    <string name="save"><b>Сохранить</b></string>
+    <string name="cancel_dialog"><b>Отмена</b></string>
+    <string name="modal_bottom_sheet">sdsdss</string>
+    <string name="archiving">Архивировать</string>
+    <string name="restore">Восcтановить</string>
+    <string name="delete">Удалить</string>
 </resources>

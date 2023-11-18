@@ -10,19 +10,23 @@ import com.example.neobis_android_inventory_app.MainFragmentDirections
 import com.example.neobis_android_inventory_app.database.DataProduct
 import com.example.neobis_android_inventory_app.databinding.ItemRecyclerviewBinding
 
-
-
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+interface ClickListener {
+    fun onBottomSheetClick(position: Int, dataProduct: DataProduct)
+    fun onRecyclerViewItemClick(dataProduct: DataProduct)
+}
+class RecyclerViewAdapter(
+     val clickListener: ClickListener
+) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     var dataProduct = emptyList<DataProduct>()
-    class ViewHolder(private val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root){
 
+    class ViewHolder(private val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root){
         val img = binding.itemImageview
         val name = binding.itemNameProduct
         val price = binding.itemPrice
         val manufacturer = binding.itemManufacturer
         val quantity =binding.itemQuantity
         val item = binding.itemCardView
-
+        val itemMenu = binding.itemMenu
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,11 +46,12 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
                 price.text = dataProduct.price.toString()
                 manufacturer.text = dataProduct.manufacturer
                 quantity.text = dataProduct.quantity.toString()
-
         }
         holder.item.setOnClickListener{
-            val action = MainFragmentDirections.actionMainFragmentToUpdateFragment(dataProduct)
-            holder.item.findNavController().navigate(action)
+          clickListener.onRecyclerViewItemClick(dataProduct)
+        }
+        holder.itemMenu.setOnClickListener {
+            clickListener.onBottomSheetClick(position,dataProduct)
         }
     }
 

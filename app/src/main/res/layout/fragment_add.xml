@@ -115,6 +115,7 @@
                     android:textColorHint="@color/gray2"
                     android:singleLine="true"
                     android:textSize="15sp"
+                    android:inputType="textCapSentences"
                     />
             </androidx.cardview.widget.CardView>
 
@@ -192,6 +193,7 @@
                     android:textColorHint="@color/gray2"
                     android:textSize="15sp"
                     android:singleLine="true"
+                    android:inputType="textCapSentences"
                     />
             </androidx.cardview.widget.CardView>
 

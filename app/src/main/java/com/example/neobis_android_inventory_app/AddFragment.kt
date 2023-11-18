@@ -23,7 +23,7 @@ import com.example.neobis_android_inventory_app.database.ProductRepository
 import com.example.neobis_android_inventory_app.databinding.FragmentAddBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 
-class AddFragment : Fragment(),ProductContract.View {
+class AddFragment : Fragment(),ProductContract.MainView {
     private lateinit var binding: FragmentAddBinding
     private lateinit var presenter: ProductPresenter
     private var imageUri: Uri? = null
@@ -35,7 +35,6 @@ class AddFragment : Fragment(),ProductContract.View {
 
         return binding.root
         }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonAdd.setOnClickListener {
@@ -43,7 +42,6 @@ class AddFragment : Fragment(),ProductContract.View {
         }
         buttonClickListener()
     }
-
     private fun buttonClickListener() {
         presenter = ProductPresenter(requireContext())
         presenter.attachView(this)
@@ -61,21 +59,15 @@ class AddFragment : Fragment(),ProductContract.View {
                 .maxResultSize(1080, 1080)
                 .start()
         }
-
-
     }
     @SuppressLint("SuspiciousIndentation")
     private fun insertProduct() {
         val imagePath = imageUri.toString()
         val name = binding.inputName.text.toString()
-        val priceStr = binding.inputPrice.text.toString()
+        val price = getString(R.string.price, binding.inputPrice.text.toString())
         val manufacturer = binding.inputManufacturer.text.toString()
-        val quantityStr = binding.inputQuantity.text.toString()
-            if (inputCheck(name, priceStr, manufacturer, quantityStr)) {
-                if (priceStr.isNotEmpty() && quantityStr.isNotEmpty()) {
-                    val price = priceStr.toInt()
-                    val quantity = quantityStr.toInt()
-
+        val quantity = getString(R.string.quantity,binding.inputQuantity.text.toString())
+            if (inputCheck(name, price, manufacturer, quantity)) {
                     val dataproduct = DataProduct(
 
                         imagePath = imagePath,
@@ -88,26 +80,17 @@ class AddFragment : Fragment(),ProductContract.View {
                     Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG)
                         .show()
                 findNavController().navigateUp()
-                }
             } else {
                 Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
             }
-
     }
-    private fun inputCheck(name: String,
-                            priceStr: String,
-                           manufacturer: String,
-                           quantityStr: String): Boolean{
-        return !(TextUtils.isEmpty(name) ||
-                TextUtils.isEmpty(priceStr)  ||
-                TextUtils.isEmpty(manufacturer)||
-                        TextUtils.isEmpty(quantityStr))
+    private fun inputCheck(name: String, price: String, manufacturer: String, quantity: String): Boolean{
+        return !(TextUtils.isEmpty(name) ||TextUtils.isEmpty(price)  || TextUtils.isEmpty(manufacturer)|| TextUtils.isEmpty(quantity))
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
             imageUri = data.data
-
             Glide.with(this).load(imageUri).into(binding.imageProduct)
         }
     }

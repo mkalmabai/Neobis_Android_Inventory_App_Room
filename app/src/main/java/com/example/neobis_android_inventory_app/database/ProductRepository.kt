@@ -4,6 +4,9 @@ class ProductRepository(private val productDao: ProductDao) {
       fun getAllProducts(): List<DataProduct>{
         return productDao.getAll()
     }
+        fun getAllArchive(): List<DataProduct>{
+            return productDao.getAllArchived()
+        }
        fun insertProduct(dataProduct: DataProduct){
         return productDao.insert(dataProduct)
     }
@@ -13,4 +16,5 @@ class ProductRepository(private val productDao: ProductDao) {
        fun deleteProduct(dataProduct: DataProduct) {
         return productDao.delete(dataProduct)
     }
+
 }

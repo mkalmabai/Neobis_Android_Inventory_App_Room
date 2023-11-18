@@ -9,45 +9,38 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ProductPresenter(private val context: Context): ProductContract.Presenter {
+class ArchivePresenter(private val context: Context):ProductContract.Presenter {
     private var view:ProductContract.MainView? = null
     private val productRepository: ProductRepository
     init {
         val productDao = ProductDatabase.getDatabase(context)?.productDao()
         productRepository = productDao?.let { ProductRepository(it) }!!
     }
-
     override fun getAllProducts() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val products = withContext(Dispatchers.IO) {
-                    productRepository.getAllProducts()
+                    productRepository.getAllArchive()
                 }
                 view?.showProducts(products)
             } catch (e: Exception) {
-               view?.showError(e.message ?: "Unknown error occurred")
+                view?.showError(e.message ?: "Unknown error occurred")
             }
         }
     }
+
     override fun insertProduct(dataProduct: DataProduct) {
-        CoroutineScope(Dispatchers.IO).launch {
-            productRepository.insertProduct(dataProduct)
-        }
+        TODO("Not yet implemented")
     }
-    override  fun updateProduct(dataProduct: DataProduct) {
-        CoroutineScope(Dispatchers.IO).launch {
-            productRepository.updateProduct(dataProduct)
-        }
 
+    override fun updateProduct(dataProduct: DataProduct) {
+        TODO("Not yet implemented")
     }
+
     override fun deleteProduct(dataProduct: DataProduct) {
-        CoroutineScope(Dispatchers.IO).launch {
-            productRepository.deleteProduct(dataProduct)
-        }
-
+        TODO("Not yet implemented")
     }
     fun attachView(view: ProductContract.MainView) {
         this.view = view
     }
-
 }

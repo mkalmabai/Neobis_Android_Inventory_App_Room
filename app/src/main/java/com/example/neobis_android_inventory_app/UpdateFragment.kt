@@ -1,5 +1,6 @@
 package com.example.neobis_android_inventory_app
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -21,7 +22,7 @@ import com.example.neobis_android_inventory_app.databinding.FragmentUpdateBindin
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 
-class UpdateFragment : Fragment(),ProductContract.View {
+class UpdateFragment : Fragment(),ProductContract.MainView {
     private lateinit var binding: FragmentUpdateBinding
     private  val args by navArgs<UpdateFragmentArgs>()
     private lateinit var presenter: ProductPresenter
@@ -42,11 +43,8 @@ class UpdateFragment : Fragment(),ProductContract.View {
             updateInputQuantity.setText(args.dataProdactArg.quantity.toString())
 
         }
-
         return binding.root
-
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonUpdate.setOnClickListener {
@@ -72,59 +70,48 @@ class UpdateFragment : Fragment(),ProductContract.View {
                 .maxResultSize(1080, 1080)
                 .start()
         }
-
-
     }
     private fun updateProduct() {
         val imagePath = if(changedImage){ imageUri.toString()
         }else{args.dataProdactArg.imagePath}
         val name = binding.updateInputName.text.toString()
-        val priceStr = binding.updateInputPrice.text.toString()
+        val price = binding.updateInputPrice.text.toString()
         val manufacturer = binding.updateInputManufacturer.text.toString()
-        val quantityStr = binding.updateInputQuantity.text.toString()
+        val quantity = binding.updateInputQuantity.text.toString()
         println(manufacturer)
-        if (inputCheck(name, priceStr, manufacturer, quantityStr)) {
-            if (priceStr.isNotEmpty() && quantityStr.isNotEmpty()) {
-                val price = priceStr.toInt()
-                val quantity = quantityStr.toInt()
-
+        if (inputCheck(name, price, manufacturer, quantity)) {
                 val dataproduct = DataProduct(
                     args.dataProdactArg.id,
                     imagePath = imagePath,
                     name =name,
                     price = price,
                     manufacturer =manufacturer,
-                    quantity =quantity
+                    quantity =quantity,
+                    args.dataProdactArg.archive
                 )
                 showUpdateConfirmationDialog(dataproduct)
-            }
-        } else {
+            } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
-
     }
+    @SuppressLint("InflateParams")
     private fun showUpdateConfirmationDialog(dataproduct: DataProduct) {
+        val inflater = requireActivity().layoutInflater
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Сохранить изменения?")
-            .setPositiveButton("Сохранить") { dialog, _ ->
+        builder.setView(inflater.inflate(R.layout.dialog_update,null))
+            .setPositiveButton(R.string.save) { dialog, _ ->
                 presenter.updateProduct(dataproduct)
                 Toast.makeText(requireContext(), "Updated Successfully!", Toast.LENGTH_LONG).show()
                 findNavController().navigateUp()
                 dialog.dismiss()
             }
-            .setNegativeButton("Отмена") { dialog, _ ->
+            .setNegativeButton(R.string.cancel_dialog) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
-    private fun inputCheck(name: String,
-                           priceStr: String,
-                           manufacturer: String,
-                           quantityStr: String): Boolean{
-        return !(TextUtils.isEmpty(name) ||
-                TextUtils.isEmpty(priceStr)  ||
-                TextUtils.isEmpty(manufacturer)||
-                TextUtils.isEmpty(quantityStr))
+    private fun inputCheck(name: String, price: String, manufacturer: String, quantity: String): Boolean{
+        return !(TextUtils.isEmpty(name) ||TextUtils.isEmpty(price)  || TextUtils.isEmpty(manufacturer)|| TextUtils.isEmpty(quantity))
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -134,7 +121,6 @@ class UpdateFragment : Fragment(),ProductContract.View {
             changedImage =true
         }
     }
-
     override fun showProducts(products: List<DataProduct>) {}
     override fun showError(message: String) {}
 

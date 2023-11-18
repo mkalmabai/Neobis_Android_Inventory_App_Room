@@ -13,7 +13,8 @@ data class DataProduct(
     val id: Int? = null,
     val imagePath: String,
     val name: String,
-    val price: Int,
+    val price: String,
     val manufacturer: String,
-    val quantity: Int
+    val quantity: String,
+    var archive:Boolean = false
 ):Parcelable
