@@ -1,6 +1,7 @@
 package com.example.neobis_android_inventory_app.Presenter
 
 import android.content.Context
+import android.util.Log
 import com.example.neobis_android_inventory_app.database.DataProduct
 import com.example.neobis_android_inventory_app.database.ProductDatabase
 import com.example.neobis_android_inventory_app.database.ProductRepository
@@ -43,6 +44,7 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
     override fun deleteProduct(dataProduct: DataProduct) {
         CoroutineScope(Dispatchers.IO).launch {
             productRepository.deleteProduct(dataProduct)
+
         }
 
     }
@@ -50,6 +52,7 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
         dataProduct.archive =true
         CoroutineScope(Dispatchers.IO).launch {
             productRepository.updateProduct(dataProduct)
+
         }
     }
     fun attachView(view: ProductContract.MainView) {

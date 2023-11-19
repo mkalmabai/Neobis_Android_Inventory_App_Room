@@ -39,11 +39,13 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
         //Adapter Recyclerview
-        adapter = RecyclerViewAdapter(this)
-        val recyclerview = binding.recyclerview
-        recyclerview.adapter = adapter
-        recyclerview.layoutManager = GridLayoutManager(requireContext(),2)
+   return view
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adapter = RecyclerViewAdapter(this)
+        binding.recyclerview.adapter =adapter
 
         getAllProducts()
 
@@ -51,7 +53,8 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment3)
         }
 
-        return view
+
+
     }
     private fun getAllProducts() {
         presenter = ProductPresenter(requireContext())
@@ -59,12 +62,11 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
         presenter.getAllProducts()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     override fun showProducts(products: List<DataProduct>) {
-        adapter.dataProduct = products
-        adapter.notifyDataSetChanged()
-        Log.e("Test", "showAllProductsFragment")
+        adapter.updateProduct(products)
     }
+
 
     override fun onBottomSheetClick(position: Int, dataProduct: DataProduct) {
         val dialog = BottomSheetDialog(requireContext())
@@ -85,6 +87,8 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
             .setTitle("Архивировать ${dataProduct.name} из каталога?")
             .setPositiveButton("Да") { _, _ ->
                 presenter.archiveProduct(dataProduct)
+                presenter.getAllProducts()
+
             }
             .setNegativeButton("Нет", null)
             .create()

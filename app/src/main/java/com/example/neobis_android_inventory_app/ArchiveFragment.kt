@@ -75,6 +75,7 @@ class ArchiveFragment : Fragment(), ProductContract.MainView, ClickListener {
             .setTitle("Удалить ${dataProduct.name} из архива?")
             .setPositiveButton("Удалить") { _, _ ->
               presenter.deleteProduct(dataProduct)
+                presenter.getAllProducts()
             }
             .setNegativeButton("Отмена", null)
             .create()
@@ -86,6 +87,7 @@ class ArchiveFragment : Fragment(), ProductContract.MainView, ClickListener {
             .setTitle("Архивировать ${dataProduct.name} из каталога?")
             .setPositiveButton("Да") { _, _ ->
             presenter.restoreProduct(dataProduct)
+                presenter.getAllProducts()
             }
             .setNegativeButton("Нет", null)
             .create()
@@ -98,13 +100,9 @@ class ArchiveFragment : Fragment(), ProductContract.MainView, ClickListener {
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun showProducts(products: List<DataProduct>) {
-        adapter.dataProduct = products
-        adapter.notifyDataSetChanged()
-        Log.e("Test", "showAllProductsFragment")
+        adapter.updateProduct(products)
     }
-
     override fun showError(message: String) {
         TODO("Not yet implemented")
     }
