@@ -14,6 +14,7 @@ interface ProductContract {
           fun updateProduct(dataProduct: DataProduct)
           fun deleteProduct(dataProduct: DataProduct)
           fun archiveProduct(dataProduct: DataProduct)
+          fun searchProduct(nameProduct: String)
     }
     interface ArchivePresenter{
 
@@ -22,6 +23,7 @@ interface ProductContract {
         fun getAllProducts()
         fun insertProduct(dataProduct: DataProduct)
         fun updateProduct(dataProduct: DataProduct)
+        fun searchProduct(nameProduct: String)
 
     }
 }

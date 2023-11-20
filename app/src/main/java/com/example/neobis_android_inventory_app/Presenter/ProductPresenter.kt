@@ -1,7 +1,6 @@
 package com.example.neobis_android_inventory_app.Presenter
 
 import android.content.Context
-import android.util.Log
 import com.example.neobis_android_inventory_app.database.DataProduct
 import com.example.neobis_android_inventory_app.database.ProductDatabase
 import com.example.neobis_android_inventory_app.database.ProductRepository
@@ -48,6 +47,7 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
         }
 
     }
+
     override fun archiveProduct(dataProduct: DataProduct) {
         dataProduct.archive =true
         CoroutineScope(Dispatchers.IO).launch {
@@ -55,6 +55,18 @@ class ProductPresenter(private val context: Context): ProductContract.Presenter 
 
         }
     }
+
+    override fun searchProduct(nameProduct: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val allProducts = productRepository.getAllProducts()
+            val filteredProducts = allProducts.filter { it.name.contains(nameProduct, ignoreCase = true) }
+
+            withContext(Dispatchers.Main) {
+                view?.showProducts(filteredProducts)
+            }
+        }
+        }
+
     fun attachView(view: ProductContract.MainView) {
         this.view = view
     }

@@ -32,13 +32,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/mainSearchView"
+        android:id="@+id/archiveSearchView"
         android:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
-        android:backgroundTint="@color/graySearch"
+        android:background="@drawable/shapeofsearch"
         app:iconifiedByDefault="false"
         app:layout_constraintBottom_toTopOf="@+id/recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainSearchView"
+        app:layout_constraintTop_toBottomOf="@+id/archiveSearchView"
         tools:listitem="@layout/item_recyclerview" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

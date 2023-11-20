@@ -64,9 +64,9 @@ class AddFragment : Fragment(),ProductContract.MainView {
     private fun insertProduct() {
         val imagePath = imageUri.toString()
         val name = binding.inputName.text.toString()
-        val price = getString(R.string.price, binding.inputPrice.text.toString())
+        val price =binding.inputPrice.text.toString()
         val manufacturer = binding.inputManufacturer.text.toString()
-        val quantity = getString(R.string.quantity,binding.inputQuantity.text.toString())
+        val quantity = binding.inputQuantity.text.toString()
             if (inputCheck(name, price, manufacturer, quantity)) {
                     val dataproduct = DataProduct(
 

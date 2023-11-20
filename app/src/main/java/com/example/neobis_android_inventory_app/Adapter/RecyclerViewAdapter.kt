@@ -46,9 +46,9 @@ class RecyclerViewAdapter(
         holder.apply {
             Glide.with(img).load(dataProduct.imagePath).into(img)
                 name.text = dataProduct.name
-                price.text = dataProduct.price.toString()
+                price.text = "$ ${dataProduct.price}"
                 manufacturer.text = dataProduct.manufacturer
-                quantity.text = dataProduct.quantity.toString()
+                quantity.text = "${dataProduct.quantity} шт"
         }
         holder.item.setOnClickListener{
           clickListener.onRecyclerViewItemClick(dataProduct)

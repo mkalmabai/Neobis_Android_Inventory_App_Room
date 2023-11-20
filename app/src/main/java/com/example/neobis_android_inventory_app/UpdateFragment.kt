@@ -38,9 +38,9 @@ class UpdateFragment : Fragment(),ProductContract.MainView {
         binding.apply {
             Glide.with(binding.updateImageProduct).load(Uri.parse(args.dataProdactArg.imagePath)).into(binding.updateImageProduct)
             updateInputName.setText(args.dataProdactArg.name)
-            updateInputPrice.setText(args.dataProdactArg.price.toString())
+            updateInputPrice.setText(args.dataProdactArg.price)
             updateInputManufacturer.setText(args.dataProdactArg.manufacturer)
-            updateInputQuantity.setText(args.dataProdactArg.quantity.toString())
+            updateInputQuantity.setText(args.dataProdactArg.quantity)
 
         }
         return binding.root

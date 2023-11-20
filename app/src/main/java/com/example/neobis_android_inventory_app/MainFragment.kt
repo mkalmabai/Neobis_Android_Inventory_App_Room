@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
@@ -48,6 +49,7 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
         binding.recyclerview.adapter =adapter
 
         getAllProducts()
+        search()
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addFragment3)
@@ -56,6 +58,26 @@ class MainFragment : Fragment(),ProductContract.MainView,ClickListener {
 
 
     }
+
+    private fun search() {
+        binding.mainSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let{
+                    presenter.searchProduct(it)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    presenter.searchProduct(it)
+                }
+                return false
+            }
+        })
+    }
+
     private fun getAllProducts() {
         presenter = ProductPresenter(requireContext())
         presenter.attachView(this)

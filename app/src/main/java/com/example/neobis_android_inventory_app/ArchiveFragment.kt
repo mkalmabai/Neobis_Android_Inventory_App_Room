@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -38,6 +39,7 @@ class ArchiveFragment : Fragment(), ProductContract.MainView, ClickListener {
 
 
         getAllProducts()
+        search()
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_archiveFragment_to_addFragment)
@@ -50,7 +52,24 @@ class ArchiveFragment : Fragment(), ProductContract.MainView, ClickListener {
         presenter.attachView(this)
         presenter.getAllProducts()
     }
+    private fun search() {
+        binding.archiveSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let{
+                    presenter.searchProduct(it)
+                }
+                return false
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    presenter.searchProduct(it)
+                }
+                return false
+            }
+        })
+    }
     override fun onBottomSheetClick(position: Int, dataProduct: DataProduct) {
         val dialog = BottomSheetDialog(requireContext())
         val view  = layoutInflater.inflate(R.layout.archive_bottom_sheet,null)

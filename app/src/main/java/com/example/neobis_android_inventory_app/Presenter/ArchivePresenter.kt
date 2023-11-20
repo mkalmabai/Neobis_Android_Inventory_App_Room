@@ -46,7 +46,16 @@ class ArchivePresenter(private val context: Context):ProductContract.ArchivePres
             productRepository.deleteProduct(dataProduct)
         }
     }
+    override fun searchProduct(nameProduct: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val allProducts = productRepository.getAllArchive()
+            val filteredProducts = allProducts.filter { it.name.contains(nameProduct, ignoreCase = true) }
 
+            withContext(Dispatchers.Main) {
+                view?.showProducts(filteredProducts)
+            }
+        }
+    }
     override fun restoreProduct(dataProduct: DataProduct) {
             dataProduct.archive = false
             CoroutineScope(Dispatchers.IO).launch {
